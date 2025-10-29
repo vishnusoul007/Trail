@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {  FaFacebookF, FaGoogle, FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 
 const SignupPage: React.FC = () => {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,8 +20,13 @@ const SignupPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Signup Data:", formData);
-  };
+    const { name, email, password, confirmPassword } = formData;
+
+  // Navigate to details page with query parameters
+  router.push(
+    `/details?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&confirmPassword=${encodeURIComponent(confirmPassword)}`
+  );
+};
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-linear-to-b from-blue-400 to-blue-600">
